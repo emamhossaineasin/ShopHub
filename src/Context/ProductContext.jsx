@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
+// eslint-disable-next-line react-refresh/only-export-components
 export const ProductContext = createContext([]);
 const cartFromLocalStorage = () => {
   try {
@@ -38,7 +39,6 @@ export const ProductContextProvider = ({ children }) => {
           });
         }
       }
-      console.log("Product added successfully");
       toast.success("Product added successfully", {
         style: { background: "green", color: "white" },
       });
@@ -56,7 +56,7 @@ export const ProductContextProvider = ({ children }) => {
           previous = previous.map((prod) =>
             prod.id === isProduct.id
               ? { ...prod, quantity: prod.quantity - 1 }
-              : prod
+              : prod,
           );
         } else {
           previous = previous.filter((prod) => prod.id !== product.id);
@@ -76,7 +76,7 @@ export const ProductContextProvider = ({ children }) => {
         previous = previous.map((prod) =>
           prod.id === isProduct.id
             ? { ...prod, quantity: prod.quantity + 1 }
-            : prod
+            : prod,
         );
       } else {
         // If product is not in cart, add it with quantity 1
@@ -95,7 +95,6 @@ export const ProductContextProvider = ({ children }) => {
         setProducts(data);
         const uniqueCategories = [...new Set(data.map((p) => p.category))];
         setCategories(uniqueCategories);
-        console.log(categories);
       } catch (err) {
         console.log(err);
       }
